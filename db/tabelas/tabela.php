@@ -34,6 +34,18 @@ abstract class Tabela
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_where);
     }
+    public function remover_inseguro(array $argumentos_where)
+    {
+        $where = $this->gerar_arg_igual_sql($argumentos_where);
+        if (empty($where))
+            return false;
+
+        $string_where = " WHERE " . join(" AND ", $where);
+        $string_sql = "DELETE FROM " . $this->nome_tabela . $string_where;
+
+        $comando = self::$db->prepare($string_sql);
+        return $comando->execute($argumentos_where);
+    }
     public function atualizar_inseguro(array $argumentos_where, array $argumentos_set)
     {
         $set = $this->gerar_arg_igual_sql($argumentos_set);
