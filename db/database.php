@@ -14,11 +14,26 @@ class Database
     {
         $query = file_get_contents(__DIR__ . "/creation.sql");
         self::$db->exec($query);
+
+        file_put_contents(__DIR__ . "/current.sql", $query);
+    }
+
+    private static function checar_schema_atualizada()
+    {
+        $new = file_get_contents(__DIR__ . "/creation.sql");
+        $current = file_get_contents(__DIR__ . "/current.sql");
+        return $new === $current;
     }
     private static function adquirir_db()
     {
         global $diretorio_db;
+
         if (!isset(self::$db)) {
+            // TODO: Remover sobescrever se schema desatualizada em PROD 
+            if (!self::checar_schema_atualizada()) {
+                unlink($diretorio_db);
+            }
+
             $setar_schema = !file_exists($diretorio_db);
 
             try {
