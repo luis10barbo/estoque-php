@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS  "permissao_usuario" (
 );
 
 CREATE TABLE IF NOT EXISTS "sessao" (
-	hash_sessao VARCHAR(22) PRIMARY KEY,
+	id_sessao VARCHAR(22) PRIMARY KEY,
 	id_usuario INTEGER REFERENCES usuario(idUsuario)
 );
 
