@@ -2,6 +2,9 @@
 abstract class Tabela
 {
     public static PDO $db;
+
+    abstract public string $nome_tabela;
+
     public function __construct(PDO $db)
     {
         self::$db = $db;
@@ -33,7 +36,7 @@ abstract class Tabela
 
         $string_set = join(", ", $set);
         $string_where = " WHERE " . join(" AND ", $where);
-        $string_sql = "UPDATE usuario SET " . $string_set . $string_where;
+        $string_sql = "UPDATE " . $this->nome_tabela . " SET " . $string_set . $string_where;
 
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_set);
