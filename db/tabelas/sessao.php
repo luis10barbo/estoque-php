@@ -1,12 +1,7 @@
 <?php
-class Sessao
+require_once(__DIR__ . "/tabela.php");
+class Sessao extends Tabela
 {
-    private static PDO $db;
-    public function __construct(PDO $db)
-    {
-        self::$db = $db;
-    }
-
     private function salvar_sessao(string $id_sessao)
     {
         $comando = self::$db->prepare("INSERT INTO sessao (id_sessao) VALUES (:id_sessao)");
