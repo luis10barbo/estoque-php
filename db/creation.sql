@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "produto_estoque" (
 CREATE TABLE IF NOT EXISTS "usuario" (
 	id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
 	apelido_usuario VARCHAR(16) UNIQUE NOT NULL,
-	email_usuario VARCHAR(32) UNIQUE NOT NULL,
+	email_usuario VARCHAR(48) UNIQUE NOT NULL,
 	senha_usuario VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS "permissao" (
