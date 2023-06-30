@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS "endereco" (
 	cidade_endereco VARCHAR(64),
 	bairro_endereco VARCHAR(128),
 	rua_endereco VARCHAR(128),
-	numero_endereco INTEGER
+	numero_endereco INTEGER,
+	complemento_endereco VARCHAR(32)
 );
 CREATE TABLE IF NOT EXISTS "produto" (
 	id_produto INTEGER PRIMARY KEY AUTOINCREMENT,
