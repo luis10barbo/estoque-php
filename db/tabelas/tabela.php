@@ -83,7 +83,7 @@ abstract class Tabela
         $string_sql = "UPDATE " . $this->nome_tabela() . " SET " . $string_set . $string_where;
 
         $comando = self::$db->prepare($string_sql);
-        return $comando->execute($argumentos_set);
+        return $comando->execute(array_merge($argumentos_set, $argumentos_where));
     }
 }
 ?>
