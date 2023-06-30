@@ -70,6 +70,15 @@ class Database
         }
         return self::$usuario;
     }
+
+    public static function endereco()
+    {
+        if (!isset(self::$endereco)) {
+            $db = self::adquirir_db();
+            self::$endereco = new Endereco($db);
+        }
+        return self::$endereco;
+    }
 }
 
 ?>
