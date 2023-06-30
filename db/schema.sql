@@ -14,11 +14,19 @@ CREATE TABLE IF NOT EXISTS "produto" (
 	fornecedor_produto VARCHAR(64),
 	preco_encomenda FLOAT
 );
+CREATE TABLE IF NOT EXISTS "usuario" (
+	id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+	apelido_usuario VARCHAR(16) UNIQUE NOT NULL,
+	email_usuario VARCHAR(48) UNIQUE NOT NULL,
+	senha_usuario VARCHAR(255) NOT NULL
+);
 CREATE TABLE IF NOT EXISTS "estoque" (
 	id_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
 	id_endereco INTEGER,
+	id_dono INTEGER,
 	nome_estoque VARCHAR(128),
-	FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco)
+	FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco),
+	FOREIGN KEY (id_dono) REFERENCES usuario(id_usuario)
 );
 CREATE TABLE IF NOT EXISTS "produto_estoque" (
 	id_produto_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,12 +38,6 @@ CREATE TABLE IF NOT EXISTS "produto_estoque" (
 	preco_produto FLOAT,
 	FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
 	FOREIGN KEY (id_estoque) REFERENCES estoque(id_estoque)
-);
-CREATE TABLE IF NOT EXISTS "usuario" (
-	id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
-	apelido_usuario VARCHAR(16) UNIQUE NOT NULL,
-	email_usuario VARCHAR(48) UNIQUE NOT NULL,
-	senha_usuario VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS "permissao" (
 	id_permissao INTEGER PRIMARY KEY AUTOINCREMENT,
