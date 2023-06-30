@@ -2,6 +2,7 @@
 require_once(__DIR__ . "/tabelas/sessao.php");
 require_once(__DIR__ . "/tabelas/usuario.php");
 require_once(__DIR__ . "/tabelas/endereco.php");
+require_once(__DIR__ . "/tabelas/estoque.php");
 
 $diretorio_db = __DIR__ . "/database.db";
 
@@ -11,6 +12,7 @@ class Database
     private static Sessao $sessao;
     private static Usuario $usuario;
     private static Endereco $endereco;
+    private static Estoque $estoque;
 
     private function __construct()
     {
@@ -80,6 +82,14 @@ class Database
             self::$endereco = new Endereco($db);
         }
         return self::$endereco;
+    }
+    public static function estoque()
+    {
+        if (!isset(self::$estoque)) {
+            $db = self::adquirir_db();
+            self::$estoque = new Estoque($db);
+        }
+        return self::$estoque;
     }
 }
 
