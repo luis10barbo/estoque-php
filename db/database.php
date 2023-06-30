@@ -15,7 +15,7 @@ class Database
     }
     private static function setar_schema_db()
     {
-        $query = file_get_contents(__DIR__ . "/creation.sql");
+        $query = file_get_contents(__DIR__ . "/schema.sql");
         self::$db->exec($query);
 
         file_put_contents(__DIR__ . "/current.sql", $query);
@@ -23,7 +23,7 @@ class Database
 
     private static function checar_schema_atualizada()
     {
-        $new = file_get_contents(__DIR__ . "/creation.sql");
+        $new = file_get_contents(__DIR__ . "/schema.sql");
         $current = file_get_contents(__DIR__ . "/current.sql");
         return $new === $current;
     }
