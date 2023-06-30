@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/tabelas/sessao.php");
 require_once(__DIR__ . "/tabelas/usuario.php");
+require_once(__DIR__ . "/tabelas/endereco.php");
 
 $diretorio_db = __DIR__ . "/database.db";
 
@@ -9,6 +10,7 @@ class Database
     private static PDO $db;
     private static Sessao $sessao;
     private static Usuario $usuario;
+    private static Endereco $endereco;
 
     private function __construct()
     {
@@ -54,7 +56,7 @@ class Database
 
         return self::$db;
     }
-    static function sessao()
+    public static function sessao()
     {
         $db = self::adquirir_db();
         if (!isset(self::$sessao)) {
@@ -62,7 +64,7 @@ class Database
         }
         return self::$sessao;
     }
-    static function usuario()
+    public static function usuario()
     {
         $db = self::adquirir_db();
         if (!isset(self::$usuario)) {
