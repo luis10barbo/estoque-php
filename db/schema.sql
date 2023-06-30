@@ -16,17 +16,20 @@ CREATE TABLE IF NOT EXISTS "produto" (
 );
 CREATE TABLE IF NOT EXISTS "estoque" (
 	id_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
-	id_endereco INTEGER REFERENCES endereco(idEndereco),
-	nome_estoque VARCHAR(128)
+	id_endereco INTEGER,
+	nome_estoque VARCHAR(128),
+	FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco)
 );
 CREATE TABLE IF NOT EXISTS "produto_estoque" (
 	id_produto_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
 	codigo_produto VARCHAR(128) UNIQUE,
-	id_estoque INTEGER REFERENCES estoque(idEstoque),
-	id_produto INTEGER REFERENCES produto(idProduto),
+	id_estoque INTEGER,
+	id_produto INTEGER,
 	estoque_produto INTEGER DEFAULT (0),
 	vendas_produto INTEGER DEFAULT (0),
-	preco_produto FLOAT
+	preco_produto FLOAT,
+	FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
+	FOREIGN KEY (id_estoque) REFERENCES estoque(id_estoque)
 );
 CREATE TABLE IF NOT EXISTS "usuario" (
 	id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,10 +43,13 @@ CREATE TABLE IF NOT EXISTS "permissao" (
 );
 CREATE TABLE IF NOT EXISTS "permissao_usuario" (
 	id_permissao_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
-	id_usuario INTEGER NOT NULL REFERENCES usuario(idUsuario),
-	id_permissao INTEGER NOT NULL REFERENCES permissao(idPermissao)
+	id_usuario INTEGER NOT NULL,
+	id_permissao INTEGER NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY (id_permissao) REFERENCES permissao(id_permissao)
 );
 CREATE TABLE IF NOT EXISTS "sessao" (
 	id_sessao VARCHAR(22) PRIMARY KEY,
-	id_usuario INTEGER REFERENCES usuario(idUsuario)
+	id_usuario INTEGER,
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
