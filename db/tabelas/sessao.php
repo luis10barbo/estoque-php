@@ -16,6 +16,17 @@ class Sessao extends Tabela
     {
         return $this->__buscar(array("id_sessao" => $id_sessao));
     }
+
+    public function atualizar(string $id_sessao, int $id_usuario)
+    {
+        return $this->__atualizar(array("id_sessao" => $id_sessao), array("id_usuario" => $id_usuario));
+    }
+
+    public function remover(string $id_sessao)
+    {
+        return $this->__remover(array("id_sessao" => $id_sessao));
+    }
+
     public function adquirir_sessao(string $id_sessao)
     {
         $sessao = $this->buscar($id_sessao);
