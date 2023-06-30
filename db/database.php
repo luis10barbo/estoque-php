@@ -58,16 +58,16 @@ class Database
     }
     public static function sessao()
     {
-        $db = self::adquirir_db();
         if (!isset(self::$sessao)) {
+            $db = self::adquirir_db();
             self::$sessao = new Sessao($db);
         }
         return self::$sessao;
     }
     public static function usuario()
     {
-        $db = self::adquirir_db();
         if (!isset(self::$usuario)) {
+            $db = self::adquirir_db();
             self::$usuario = new Usuario($db);
         }
         return self::$usuario;
