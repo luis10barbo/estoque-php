@@ -14,6 +14,14 @@ class Usuario extends Tabela
     {
         return $this->__buscar(array("id_usuario" => $id_usuario));
     }
+    public function buscar_email(string $email_usuario)
+    {
+        return $this->__buscar(array("email_usuario" => $email_usuario));
+    }
+    public function buscar_apelido(string $apelido_usuario)
+    {
+        return $this->__buscar(array("apelido_usuario" => $apelido_usuario));
+    }
     private function remover(int $id_usuario)
     {
         $this->__remover(array("id_usuario" => $id_usuario));
