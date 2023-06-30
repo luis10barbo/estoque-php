@@ -3,6 +3,7 @@ require_once(__DIR__ . "/tabelas/sessao.php");
 require_once(__DIR__ . "/tabelas/usuario.php");
 require_once(__DIR__ . "/tabelas/endereco.php");
 require_once(__DIR__ . "/tabelas/estoque.php");
+require_once(__DIR__ . "/tabelas/produto.php");
 
 $diretorio_db = __DIR__ . "/database.db";
 
@@ -13,6 +14,7 @@ class Database
     private static Usuario $usuario;
     private static Endereco $endereco;
     private static Estoque $estoque;
+    private static Produto $produto;
 
     private function __construct()
     {
@@ -90,6 +92,14 @@ class Database
             self::$estoque = new Estoque($db);
         }
         return self::$estoque;
+    }
+    public static function produto()
+    {
+        if (!isset(self::$produto)) {
+            $db = self::adquirir_db();
+            self::$produto = new Produto($db);
+        }
+        return self::$produto;
     }
 }
 
