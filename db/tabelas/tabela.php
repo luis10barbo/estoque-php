@@ -3,12 +3,13 @@ abstract class Tabela
 {
     public static PDO $db;
 
-    abstract public string $nome_tabela;
 
     public function __construct(PDO $db)
     {
         self::$db = $db;
     }
+
+    abstract function nome_tabela(): string;
 
     private function gerar_arg_igual_sql($argumentos)
     {
@@ -29,7 +30,7 @@ abstract class Tabela
             return false;
 
         $string_where = " WHERE " . join(" AND ", $where);
-        $string_sql = "SELECT * FROM " . $this->nome_tabela . " " . $string_where;
+        $string_sql = "SELECT * FROM " . $this->nome_tabela() . $string_where;
 
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_where);
@@ -41,7 +42,7 @@ abstract class Tabela
             return false;
 
         $string_where = " WHERE " . join(" AND ", $where);
-        $string_sql = "DELETE FROM " . $this->nome_tabela . $string_where;
+        $string_sql = "DELETE FROM " . $this->nome_tabela() . $string_where;
 
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_where);
@@ -60,7 +61,7 @@ abstract class Tabela
 
         $string_set = join(", ", $set);
         $string_where = " WHERE " . join(" AND ", $where);
-        $string_sql = "UPDATE " . $this->nome_tabela . " SET " . $string_set . $string_where;
+        $string_sql = "UPDATE " . $this->nome_tabela() . " SET " . $string_set . $string_where;
 
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_set);
