@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . "/../../utils/array.php");
 abstract class Tabela
 {
     public static PDO $db;
@@ -11,7 +12,7 @@ abstract class Tabela
 
     abstract function nome_tabela(): string;
 
-    private function gerar_arg_igual_sql($argumentos)
+    private function gerar_arg_igual_sql(array $argumentos)
     {
         $formatacao_sql = array();
         foreach ($argumentos as $nome_argumento => $valor_argumento) {
@@ -26,6 +27,7 @@ abstract class Tabela
     public function __inserir(array $argumentos_values)
     {
         $values = array();
+        $argumentos_values_filtrados = array_filtrar_null($argumentos_values);
         if (empty($argumentos_values))
             return false;
 
@@ -39,11 +41,12 @@ abstract class Tabela
         $string_sql = "INSERT INTO " . $this->nome_tabela() . $string_values;
 
         $comando = self::$db->prepare($string_sql);
-        return $comando->execute($argumentos_values);
+        return $comando->execute($argumentos_values_filtrados);
     }
     public function __buscar(array $argumentos_where, array|null $argumentos_select = null)
     {
         $where = $this->gerar_arg_igual_sql($argumentos_where);
+        $argumentos_where_filtrado = array_filtrar_null($argumentos_where);
         if (empty($where))
             return false;
 
@@ -51,12 +54,13 @@ abstract class Tabela
         $string_sql = "SELECT " . ($argumentos_select ? join(", ", $argumentos_select) : "*") . " FROM " . $this->nome_tabela() . $string_where;
 
         $comando = self::$db->prepare($string_sql);
-        $comando->execute($argumentos_where);
+        $comando->execute($argumentos_where_filtrado);
         return $comando->fetch(PDO::FETCH_ASSOC);
     }
     public function __remover(array $argumentos_where)
     {
         $where = $this->gerar_arg_igual_sql($argumentos_where);
+        $argumentos_where_filtrado = array_filtrar_null($argumentos_where);
         if (empty($where))
             return false;
 
@@ -64,16 +68,15 @@ abstract class Tabela
         $string_sql = "DELETE FROM " . $this->nome_tabela() . $string_where;
 
         $comando = self::$db->prepare($string_sql);
-        return $comando->execute($argumentos_where);
+        return $comando->execute($argumentos_where_filtrado);
     }
     public function __atualizar(array $argumentos_where, array $argumentos_set)
     {
         $set = $this->gerar_arg_igual_sql($argumentos_set);
         $where = $this->gerar_arg_igual_sql($argumentos_where);
 
-        // var_dump($set);
-        // echo "<br/>";
-        // var_dump($where);
+        $argumentos_set_filtrado = array_filtrar_null($argumentos_set);
+        $argumentos_where_filtrado = array_filtrar_null($argumentos_where);
 
         if (empty($set) || empty($where))
             return false;
@@ -83,7 +86,7 @@ abstract class Tabela
         $string_sql = "UPDATE " . $this->nome_tabela() . " SET " . $string_set . $string_where;
 
         $comando = self::$db->prepare($string_sql);
-        return $comando->execute(array_merge($argumentos_set, $argumentos_where));
+        return $comando->execute(array_merge($argumentos_set_filtrado, $argumentos_where_filtrado));
     }
 }
 ?>
