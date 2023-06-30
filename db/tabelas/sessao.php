@@ -7,21 +7,21 @@ class Sessao extends Tabela
         return "sessao";
     }
 
-    private function salvar_sessao(string $id_sessao)
+    public function inserir(string $id_sessao, int|null $id_usuario = null)
     {
-        return $this->__inserir(array("id_sessao" => $id_sessao));
+        return $this->__inserir(array("id_sessao" => $id_sessao, "id_usuario" => $id_usuario));
     }
 
-    private function select_sessao(string $id_sessao)
+    public function buscar(string $id_sessao)
     {
         return $this->__buscar(array("id_sessao" => $id_sessao));
     }
     public function adquirir_sessao(string $id_sessao)
     {
-        $sessao = $this->select_sessao($id_sessao);
+        $sessao = $this->buscar($id_sessao);
         if (empty($sessao)) {
-            self::salvar_sessao($id_sessao);
-            return self::select_sessao($id_sessao);
+            self::inserir($id_sessao);
+            return self::buscar($id_sessao);
         }
 
         return $sessao;
