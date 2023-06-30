@@ -9,12 +9,12 @@ class Sessao extends Tabela
 
     private function salvar_sessao(string $id_sessao)
     {
-        return $this->inserir_inseguro(array("id_sessao" => $id_sessao));
+        return $this->__inserir(array("id_sessao" => $id_sessao));
     }
 
     private function select_sessao(string $id_sessao)
     {
-        return $this->buscar_inseguro(array("id_sessao" => $id_sessao));
+        return $this->__buscar(array("id_sessao" => $id_sessao));
     }
     public function adquirir_sessao(string $id_sessao)
     {

@@ -23,7 +23,7 @@ abstract class Tabela
 
         return $formatacao_sql;
     }
-    public function inserir_inseguro(array $argumentos_values)
+    public function __inserir(array $argumentos_values)
     {
         $values = array();
         if (empty($argumentos_values))
@@ -41,7 +41,7 @@ abstract class Tabela
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_values);
     }
-    public function buscar_inseguro(array $argumentos_where)
+    public function __buscar(array $argumentos_where)
     {
         $where = $this->gerar_arg_igual_sql($argumentos_where);
         if (empty($where))
@@ -54,7 +54,7 @@ abstract class Tabela
         $comando->execute($argumentos_where);
         return $comando->fetch(PDO::FETCH_ASSOC);
     }
-    public function remover_inseguro(array $argumentos_where)
+    public function __remover(array $argumentos_where)
     {
         $where = $this->gerar_arg_igual_sql($argumentos_where);
         if (empty($where))
@@ -66,7 +66,7 @@ abstract class Tabela
         $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_where);
     }
-    public function atualizar_inseguro(array $argumentos_where, array $argumentos_set)
+    public function __atualizar(array $argumentos_where, array $argumentos_set)
     {
         $set = $this->gerar_arg_igual_sql($argumentos_set);
         $where = $this->gerar_arg_igual_sql($argumentos_where);
