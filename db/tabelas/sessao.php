@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/tabela.php");
 class Sessao extends Tabela
 {
-    public function nome_tabela()
+    public function nome_tabela(): string
     {
         return "sessao";
     }
