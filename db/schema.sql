@@ -30,12 +30,12 @@ CREATE TABLE IF NOT EXISTS "estoque" (
 );
 CREATE TABLE IF NOT EXISTS "produto_estoque" (
 	id_produto_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
-	codigo_produto VARCHAR(128) UNIQUE,
-	id_estoque INTEGER,
-	id_produto INTEGER,
-	estoque_produto INTEGER DEFAULT (0),
-	vendas_produto INTEGER DEFAULT (0),
-	preco_produto FLOAT,
+	codigo_produto VARCHAR(128),
+	id_estoque INTEGER NOT NULL,
+	id_produto INTEGER NOT NULL,
+	estoque_produto INTEGER DEFAULT (0) NOT NULL,
+	vendas_produto INTEGER DEFAULT (0) NOT NULL,
+	preco_produto FLOAT DEFAULT (0.0) NOT NULL,
 	FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
 	FOREIGN KEY (id_estoque) REFERENCES estoque(id_estoque)
 );
