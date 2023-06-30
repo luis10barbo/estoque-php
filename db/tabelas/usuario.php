@@ -10,9 +10,13 @@ class Usuario extends Tabela
     {
         return $this->__inserir(array("apelido_usuario" => $apelido_usuario, "email_usuario" => $email_usuario, "senha_usuario" => $senha_usuario));
     }
-    public function buscar(int $id_usuario)
+    public function buscar(int $id_usuario, bool $incluir_senha = false)
     {
-        return $this->__buscar(array("id_usuario" => $id_usuario));
+        $colunas_incluidas = array("id_usuario", "apelido_usuario", "email_usuario");
+        if ($incluir_senha)
+            array_push($colunas_incluidas, "senha_usuario");
+
+        return $this->__buscar(array("id_usuario" => $id_usuario), $colunas_incluidas);
     }
     public function buscar_email(string $email_usuario)
     {
