@@ -23,6 +23,24 @@ abstract class Tabela
 
         return $formatacao_sql;
     }
+    public function inserir_inseguro(array $argumentos_values)
+    {
+        $values = array();
+        if (empty($argumentos_values))
+            return false;
+
+        foreach ($argumentos_values as $nome_argumento => $valor_argumento) {
+            if (!$valor_argumento)
+                continue;
+
+            array_push($values, $nome_argumento);
+        }
+        $string_values = "(" . join(", ", $values) . ") VALUES (:" . join(", :", $values) . ")";
+        $string_sql = "INSERT INTO " . $this->nome_tabela() . $string_values;
+
+        $comando = $this->db->prepare($string_sql);
+        return $comando->execute($argumentos_values);
+    }
     public function buscar_inseguro(array $argumentos_where)
     {
         $where = $this->gerar_arg_igual_sql($argumentos_where);
