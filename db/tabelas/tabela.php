@@ -51,7 +51,8 @@ abstract class Tabela
         $string_sql = "SELECT * FROM " . $this->nome_tabela() . $string_where;
 
         $comando = self::$db->prepare($string_sql);
-        return $comando->execute($argumentos_where);
+        $comando->execute($argumentos_where);
+        return $comando->fetch(PDO::FETCH_ASSOC);
     }
     public function remover_inseguro(array $argumentos_where)
     {
