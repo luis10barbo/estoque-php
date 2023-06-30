@@ -9,16 +9,12 @@ class Sessao extends Tabela
 
     private function salvar_sessao(string $id_sessao)
     {
-        $comando = self::$db->prepare("INSERT INTO sessao (id_sessao) VALUES (:id_sessao)");
-        return $comando->execute(array("id_sessao" => $id_sessao));
+        return $this->inserir_inseguro(array("id_sessao" => $id_sessao));
     }
 
     private function select_sessao(string $id_sessao)
     {
-        $comando = self::$db->prepare("SELECT * FROM sessao WHERE id_sessao = :id_sessao");
-        $comando->execute(array("id_sessao" => $id_sessao));
-
-        return $comando->fetch(PDO::FETCH_ASSOC);
+        return $this->buscar_inseguro(array("id_sessao" => $id_sessao));
     }
     public function adquirir_sessao(string $id_sessao)
     {

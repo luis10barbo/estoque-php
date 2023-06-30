@@ -8,15 +8,11 @@ class Usuario extends Tabela
     }
     private function inserir(string $apelido_usuario, string $email_usuario, string $senha_usuario)
     {
-        $comando = self::$db->prepare("INSERT INTO " . $this->nome_tabela() . " (apelido_usuario, email_usuario, senha_usuario) VALUES (:apelido_usuario, :email_usuario, :senha_usuario)");
-        return $comando->execute();
+        return $this->inserir_inseguro(array("apelido_usuario" => $apelido_usuario, "email_usuario" => $email_usuario, "senha_usuario" => $senha_usuario));
     }
     public function buscar(int $id_usuario)
     {
-        $comando = self::$db->prepare("SELECT id_usuario, apelido_usuario, email_usuario FROM " . $this->nome_tabela() . " WHERE id_usuario = :id_usuario");
-        $comando->execute(array("id_usuario" => $id_usuario));
-
-        return $comando->fetch();
+        return $this->buscar_inseguro(array("id_usuario" => $id_usuario));
     }
     private function remover(int $id_usuario)
     {
