@@ -38,7 +38,7 @@ abstract class Tabela
         $string_values = "(" . join(", ", $values) . ") VALUES (:" . join(", :", $values) . ")";
         $string_sql = "INSERT INTO " . $this->nome_tabela() . $string_values;
 
-        $comando = $this->db->prepare($string_sql);
+        $comando = self::$db->prepare($string_sql);
         return $comando->execute($argumentos_values);
     }
     public function buscar_inseguro(array $argumentos_where)
