@@ -8,10 +8,10 @@
 <body>
     <form action="api/login.php" method="post">
         <p>login aqui</p>
-             <input type="text" placeholder="coloque seu email aqui" name="username"></input>
-             <input type="password" placeholder="coloque sua senha aqui" name="password"></input>
-             <input type="submit"></input>
-             
+        <input type="text" placeholder="coloque seu email aqui" name="email"></input>
+        <input type="password" placeholder="coloque sua senha aqui" name="password"></input>
+        <input type="submit"></input>
+
     </form>
 </body>
 </html>
