@@ -6,9 +6,9 @@ class Usuario extends Tabela
     {
         return "usuario";
     }
-    public function inserir(string $apelido_usuario, string $email_usuario, string $senha_usuario)
+    public function inserir(string $email_usuario, string $senha_usuario)
     {
-        return $this->__inserir(array("apelido_usuario" => $apelido_usuario, "email_usuario" => $email_usuario, "senha_usuario" => $senha_usuario));
+        return $this->__inserir(array("email_usuario" => $email_usuario, "senha_usuario" => $senha_usuario));
     }
     public function buscar(int $id_usuario, bool $incluir_senha = false)
     {
