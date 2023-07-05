@@ -12,11 +12,11 @@ abstract class Tabela
 
     abstract function nome_tabela(): string;
 
-    private function gerar_arg_igual_sql(array $argumentos)
+    private function gerar_arg_igual_sql(array $argumentos, bool $ignorar_null = true)
     {
         $formatacao_sql = array();
         foreach ($argumentos as $nome_argumento => $valor_argumento) {
-            if (!$valor_argumento)
+            if (!$valor_argumento && $ignorar_null)
                 continue;
 
             array_push($formatacao_sql, $nome_argumento . " = :" . $nome_argumento);
@@ -72,7 +72,7 @@ abstract class Tabela
     }
     public function __atualizar(array $argumentos_where, array $argumentos_set)
     {
-        $set = $this->gerar_arg_igual_sql($argumentos_set);
+        $set = $this->gerar_arg_igual_sql($argumentos_set, false);
         $where = $this->gerar_arg_igual_sql($argumentos_where);
 
         $argumentos_set_filtrado = array_filtrar_null($argumentos_set);
@@ -86,7 +86,8 @@ abstract class Tabela
         $string_sql = "UPDATE " . $this->nome_tabela() . " SET " . $string_set . $string_where;
 
         $comando = self::$db->prepare($string_sql);
-        return $comando->execute(array_merge($argumentos_set_filtrado, $argumentos_where_filtrado));
+        var_dump($argumentos_set);
+        return $comando->execute(array_merge($argumentos_set, $argumentos_where_filtrado));
     }
 }
 ?>
