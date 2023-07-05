@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS "produto" (
 );
 CREATE TABLE IF NOT EXISTS "usuario" (
 	id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
-	apelido_usuario VARCHAR(16) UNIQUE NOT NULL,
 	email_usuario VARCHAR(48) UNIQUE NOT NULL,
 	senha_usuario VARCHAR(255) NOT NULL
 );
