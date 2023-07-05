@@ -1,5 +1,5 @@
 <?php
-if (!isset($_POST["email"]) || !isset($_POST["password"]))
+if (!isset($_POST["email"]) || !isset($_POST["password"]) || !isset($_POST["password_confirm"]))
     return;
 
 $email = $_POST["email"];
